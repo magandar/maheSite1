@@ -2,97 +2,834 @@
 <!doctype html>
 <html>
 <head>
+
     <title>Mahe's Garage</title> 
     
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script src="jquery-ui/jquery-ui.js"></script>
+    <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">    
+    
+    <style type="text/css">
+
+        body {  
+            margin: 0;
+            padding-top: 145px;
+            font-family: 'Oswald',Arial;
+            background-image: url(GreyBG.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            position:relative
+        }
+        
+        footer {
+            text-align: center;
+            height:10px;
+        }
+        
+        table, th, td {
+            border-bottom:  1px solid grey;
+            border-collapse:collapse; 
+            border-spacing:0;
+        }
+        
+        .icons{
+
+            font-size: 20px;
+        }
+        
+        .highlighted-search-button {
+            background-color:lightcyan !important;
+        }
+        
+        .highlighted-image {
+            filter:brightness(50%)
+        }
+        
+        .vehicle-header{
+            color: lightcyan;
+            font-family: 'Oswald',Arial;
+            font-size: 120%;
+            font-weight: 400;
+            margin: 18px 0px 11px 18px;
+        }
+        
+        .vehicle-images{
+            position:relative;
+            max-width:500px;
+            margin: 18px 0px 11px 18px;
+        }
+        
+        .sportsterImages{
+            width:500px;   
+        }
+        
+        .ninjaImages {
+            width:500px;
+        }
+        
+        .arrow-button{
+            border:none;
+            display:inline-block;
+            padding:8px 16px;
+            vertical-align:middle;
+            overflow:hidden;
+            text-decoration:none;
+            color:inherit;
+            background-color:inherit;
+            text-align:center;
+            cursor:pointer;
+            white-space:nowrap;
+        }
+        
+        .arrow-button-look{
+            color:darkgoldenrod;
+            background-color:#000;
+        }
+        
+        .arrow-button-look:hover{
+            color:#000;
+            background-color:darkgoldenrod;
+        }
+        
+        .left-arrow-button{
+            position:absolute;
+            top:50%;
+            left:0%;
+            transform:translate(0%,-50%);
+        }
+        
+        .right-arrow-button{
+            position:absolute;
+            top:50%;
+            right:0%;
+            transform:translate(0%,-50%);
+        }
+        
+        .vehicle-links{
+            margin: 0px 0px 11px 18px;
+            width: 150px;
+            height: 70px;
+        }
+        
+        .vehicle-videos{
+            margin: 0px 0px 11px 12px;
+            float: left;
+        }
+        
+        .vehicle-videos-iframes{
+            width:460px;
+            height:315px;
+            padding: 5px;
+        }
+        
+        .clear-float{
+            clear:both;
+        }
+        
+        .accordion {
+            margin: 18px 0px 11px 18px;
+            width: 50%;
+        }
+        
+        .accordion-section {
+            background-color:navajowhite;
+        }
+        
+        .headings{
+            color: lightcyan;
+            font-family: 'Oswald',Arial;
+            font-weight: 200;
+            margin: 18px 0px 0px 18px;
+            padding-top: 15px;   
+        }
+        
+        .ui-accordion-header { 
+            background-color: lightgray; 
+        }
+
+        .ui-accordion-header.ui-state-active { 
+            background-color: darkgoldenrod; 
+        }
+        
+        .navbar.col-xs-3.navbar-expand-sm li a {
+            color: lightcyan;
+        }    
+        
+        .jumbotron {
+            background-image: url(chain.jpg);
+            color:navajowhite;
+            text-align: center;
+        }
+        
+        .btn.btn-md {
+            color: #817253;
+            background-color: navajowhite
+        }
+        
+        hr {
+            border-color: inherit;
+        }
+        
+        .highlighted-signup-button {
+            background-color:#817253 !important;
+            color: navajowhite !important;
+        }
+       
+        #logobar {
+            background-color: black;
+            float:left;
+            height: 90px;
+            position: fixed;
+            top:0px;
+            z-index:1;
+        }
+        
+        #logo {
+            float:left;
+            height: 90px;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        #navbar {
+            margin-top:90px;
+            height:56px;
+            width:100%;
+            background-color:darkgoldenrod;
+            position: fixed;
+            top:0px;
+            z-index:1;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            font-weight:bolder;
+            font-size: 105%;
+        }
+        
+        #search-box{
+            background-color:darkgrey;
+            border:none;
+            font-weight:bold;
+            font-size: 105%;
+            padding-top: 16px;
+            padding-bottom:16px;
+            margin: 30px 8px 30px 5px;
+            height:10px;
+            box-sizing: content-box;
+        }
+        
+       
+        
+       #search-button{
+            margin: 5px 5px 5px -5px;
+            background-color:darkgrey;
+            padding-top: 10px;
+            padding-bottom: -10px;
+            vertical-align:middle;
+                       
+        }
+        
+        #goto-top-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            padding: 5px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background: darkgoldenrod;
+            cursor: pointer;
+            display: block;
+        }
+        
+        #specifications {
+            border-bottom: 2px solid darkgoldenrod;  
+            width:129px;
+        }
+        
+        #shop-manuals {
+            border-bottom: 2px solid darkgoldenrod;  
+            width:152px;
+        }
+        
+        #helpful-videos {
+            border-bottom: 2px solid darkgoldenrod;  
+            width:135px;
+        }        
+        
+        #ninja{
+            padding-top: 160px;
+            margin-top: -160px;
+        }
+        
+        #sportster{
+            padding-top: 143px;
+            margin-top: -143px;
+        } 
+        
+        #app-summary {
+            text-align: center !important;
+            color:#363636;
+        }
+      
+    </style>
+    
+
+    
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#navbar" data-offset="160">
     
+    
+    <div class="fluid-container" id="logobar">
+        <a href="#"><img class="img-fluid" alt="Responsive image" id="logo" src="logobar.png"></a>
+    </div>
+    
+    <nav class="navbar navbar-default navbar-light navbar-expand-sm col-xs-3" id="navbar">
 
-    <h1 id="top" align="center">My Garage</h1>
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#sportster">SPORTSTER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#ninja">NINJA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#camry">CAMRY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#f-150">F-150</a>
+                </li>
+            </ul>
+            <form class="form-inline pull-xs-right">
+                <input id="search-box" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button id="search-button" onclick="buttonSearch()" class="btn my-2" type="button"><i class="fa fa-search icons"></i></button>
+            </form>
+    </nav>
     
-    <p>My garage has the below four vehicles - two morcycles, a car and a truck.</p>
-    <ol>
-        <li><a href="#sportster">Sportster</a></li>
-        <li><a href="#ninja">Ninja</a></li>
-        <li>Camry</li>
-        <li>F-150</li>
-    </ol>
+    <div class="jumbotron">
+        <h1 class="display-3 color-me">Hello Rider!</h1>
+        <p class="lead"><b>Welcome to my garage! Peek into the vehicles that are stored here and share your comments and feedback to better maintain and enhance them.</b></p>
+        <hr class="my-4 color-me">
+        <p>I've shared the pictures of my vehicles including any modifications that i've done and provided the links to videos that I've either followed or referred to make those MODS. Please Sign Up below to leave your comments and feedbacks along with links to any pictures, videos or how-to lessons of mods that you've done or recommend. </p>
+        <p class="lead">
+        <a class="btn btn-md color-me" href="#" role="button" id="signup-button">Sign Up</a>
+        </p>
+    </div>
     
-    <p>The year, make and model for these are as below:</p>
-    <table>
-        <thead>
-            <tr>
-                <th>YEAR</th>
-                <th>MAKE</th>
-                <th>MODEL</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>2008</td>
-                <td>Harley-Davidson</td>
-                <td>Sportster XL883L</td>
-            </tr>
-            <tr>
-                <td>2014</td>
-                <td>Kawasaki</td>
-                <td>Ninja 300 ABS</td>
-            </tr>
-            <tr>
-                <td>2007</td>
-                <td>Toyota</td>
-                <td>Camry XLE</td>
-            </tr>
-            <tr>
-                <td>2005</td>
-                <td>Ford</td>
-                <td>F-150 Lariat</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div id="app-summary">
+            <h1>Why come here?</h1>
+            <p class="lead"><b>Every once in a while we think "What's so special in my motorcycle?" or "What's so special in my car?" Why do you think we do that? Oh! By the way, don't get me wrong, I love bicycles too, sometimes even more than motorcycles or cars, considering the climate change that's haunting our mother Earth. So I definitely didn't mean to leave that out, as one of our go to rides, but I did leave that out for this context alone and you'll get to know why, soon enough.</b></p>
+            <p class="lead"><b>So circling back to the question, why do you think we do that? Let it be apparels, shoes or even a watch, we always tend to have one too many than we really need. If you know why, then you already have the answer to our questions, because it is for the same reason those questions pop up in our head. As human beings we are always unique and by having multiple items we are customizing our closet to better reflect oneself. So we think about what is special or if not, what we can do to make our vehicle special, to be unique, to perform better, to suit us better, to reflect us. You cannot go about buying tens of cars and motorcycles, because that not only digs into you savings, even if you are a millionaire but its just bad to our environment and ofcourse you can do that with a bicycle though. This opens the door to MODS which is the just cooler version of modifications. </b></p>
+            <p class="lead"><b>By now, you must have guessed why you are here and what we are going to do as a team. But still, let me put it out there. I would like us to share our experiences with different mods and help each other along the way to educate ourselves to becaome better DIYers with respect to mods. It's that simple! So what are you waiting for? Sign Up and lets do it!
+        </div>
+    </div>
     
-    <br><br><hr><br><br>
+    <div class="container-fluid" id="sportster">
+        <div class="vehicle-header"><h4>2008 Harley-Davidson Sportster XL 883 Low</h4></div> 
+        
+        <div class="vehicle-images">
+            <img class="sportsterImages" src="sportster/20170805_192939.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193003.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193112.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193251.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193251.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193300.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193407.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193424.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193445.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193453.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193502.jpg">
+            <img class="sportsterImages" src="sportster/20170805_193511.jpg">
+            <img class="sportsterImages" src="sportster/20190118_235314.jpg">
+            <img class="sportsterImages" src="sportster/20190118_235325.jpg">
+            <img class="sportsterImages" src="sportster/20190118_235330.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141622.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141646.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141648.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141652.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141659.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141701.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141703.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141739.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141741.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141744.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141751.jpg">
+            <img class="sportsterImages" src="sportster/20190526_141753.jpg">
+            <img class="sportsterImages" src="sportster/IMG_20170603_200359.jpg">
+            <img class="sportsterImages" src="sportster/IMG_20170603_200420.jpg">
+            <img class="sportsterImages" src="sportster/IMG_20170603_200422.jpg">
+            <img class="sportsterImages" src="sportster/IMG_20170603_200527.jpg">
+            <img class="sportsterImages" src="sportster/IMG_20170603_200531.jpg">
 
-    
-    <h4 id="sportster" align="left">2008 Harley-Davidson Sportster XL 883 Low</h4>
-    <img src="17429_1-500x400.jpg"><br>
-    
-    <ul>
-        <li><a href="Sportster%20Manual.pdf">2008 Sportster XL883L Owner's Manual</a></li>
-        <li><a href="https://www.jpcycles.com/2008-harley-davidson-sportster-883-low-xl883l">2008 Sportster XL883L After-Market Parts</a></li>
-        <li>Mod Videos</li>
-    </ul>
-        <pre><iframe width="260" height="115" src="https://www.youtube.com/embed/nt98EQwB69U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></pre>
-    
-        <iframe width="260" height="115" src="https://www.youtube.com/embed/KkfBI5cRT4s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   
-    <br><br><hr><br><br>
-    
-    <h4 id="ninja" align="left">2014 Kawasaki Ninja 300 ABS</h4>
-    <img src="https://s3-eu-west-1.amazonaws.com/crash.net/visordown.com/article-images/6/60796.jpg" width="500"><br>
+            <button class="arrow-button arrow-button-look left-arrow-button" onclick="buttonArrow(-1,'sportsterImages')">&#10094</button>
+            
+            <button class="arrow-button arrow-button-look right-arrow-button" onclick="buttonArrow(1,'sportsterImages')">&#10095</button>
+        </div>        
+        
+        <div class="headings"><h5 id="specifications">Specifications:</h5></div> 
+        
+        <div class="accordion">
+            <h3>ENGINE</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+                            <td valign="top">Engine Type</td>
+                            <td valign="top">&nbsp;V Twin</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Cylinders</td>
+                            <td valign="top">&nbsp;2</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Engine Stroke</td>
+                            <td valign="top">&nbsp;4-Stroke</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Cooling</td>
+                            <td valign="top">&nbsp;Air</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valves</td>
+                            <td valign="top">&nbsp;4</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valves Per Cylinder</td>
+                            <td valign="top">&nbsp;2</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valve Configuration</td>
+                            <td valign="top">&nbsp;OHV - Pushrod</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Compression Ratio</td>
+                            <td valign="top">&nbsp;8.9:1</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Starter</td>
+                            <td valign="top">&nbsp;Electric</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Requirements</td>
+                            <td valign="top">&nbsp;Regular</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Type</td>
+                            <td valign="top">&nbsp;Gas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <h3>TRANSMISSION</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">
+                    <tbody>
+                        <tr>
+                            <td valign="top">Transmission Type</td>
+                            <td valign="top">&nbsp;Manual</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Number Of Speeds</td>
+                            <td valign="top">&nbsp;5</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Primary Drive (Rear Wheel)</td>
+                            <td valign="top">&nbsp;Belt</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
-    <p><a href="https://ownersmanuals2.com/kawasaki/ninja-300-abs-2014-owners-manual-68758">2014 Ninja 300 Owner's Manual</a></p>
-    <p><a href="https://www.jpcycles.com/2014-kawasaki-ninja-300-abs">2014 Ninja 300 After-Market Parts</a></p>
-    
+            <h3>WHEELS</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">
+                    <tbody>
+                        <tr>
+                            <td valign="top">Front Tire (Full Spec)</td>
+                            <td valign="top">&nbsp;Dunlop® 100/90 R19 57H</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Rear Tire (Full Spec)</td>
+                            <td valign="top">&nbsp;Dunlop® 150/80 R16 71H</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <h3>BRAKES</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>
+                        <tr>
+                            <td valign="top">Front Brake Type</td>
+                            <td valign="top">&nbsp;Disc</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Rear Brake Type</td>
+                            <td valign="top">&nbsp;Disc</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <h3>TECHNICAL SPECIFICATIONS</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">
+                    <body>
+                        <tr>
+                            <td valign="top">Wheelbase (in/mm)</td>
+                            <td valign="top">&nbsp;60 / 1524</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Capacity (gal/l)</td>
+                            <td valign="top">&nbsp;3.3 / 12.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        
+        <div class="headings"><h5 id="shop-manuals">Shop&nbsp;&&nbsp;Manuals:</h5></div> 
+        
+        <div id="sportster-links">
+            <a href="Sportster%20Manual.pdf" target="_blank"><img class="vehicle-links" src="UserManual.png"></a>
+            
+            <a href="https://www.jpcycles.com/2008-harley-davidson-sportster-883-low-xl883l" target="_blank"><img class="vehicle-links" src="jp-cycles-logo.jpg"></a>
+            
+            <a href="https://www.revzilla.com/parts/2008-harley-davidson-sportster-lowsuperlow-xl883l?facets%5B%5D=1889" target="_blank"><img class="vehicle-links" src="revzilla.jpg"></a>
+        </div>
+        
+        <div class="headings"><h5 id="helpful-videos">Helpful Videos:</h5></div> 
+        
+        
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/nt98EQwB69U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/KkfBI5cRT4s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes"  src="https://www.youtube.com/embed/33gmXGX34R0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/GZwZy9qtgbE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/pJX3tqikN28" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/7CVAifA7DVs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/szSsRF12vIA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/sZz9sKb2_-o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/Fosvpy4VTD8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+    </div>
     
     <br><br><hr>
     
-    <a href="#top">Go to top of page</a>
+    <div class="container-fluid">   
+        <div id="ninja" class="vehicle-header"><h4>2014 Kawasaki Ninja 300 ABS</h4></div>
+        
+        <div class="vehicle-images">
+            <img class="ninjaImages" src="ninja/20190520_173942.jpg">
+            <img class="ninjaImages" src="ninja/20190520_173947.jpg">
+            <img class="ninjaImages" src="ninja/20190520_173955.jpg">
+            <img class="ninjaImages" src="ninja/20190520_174000.jpg">
+            <img class="ninjaImages" src="ninja/20190520_174008.jpg">
+            <img class="ninjaImages" src="ninja/20190520_174013.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141714.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141714.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141722.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141725.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141731.jpg">
+            <img class="ninjaImages" src="ninja/20190526_141735.jpg">
+
+            <button class="arrow-button arrow-button-look left-arrow-button" onclick="buttonArrow(-1,'ninjaImages')">&#10094</button>
+            
+            <button class="arrow-button arrow-button-look right-arrow-button" onclick="buttonArrow(1,'ninjaImages')">&#10095</button> 
+        </div>
+        
+        <div class="headings"><h5 id="specifications">Specifications:</h5></div> 
+        
+        <div class="accordion">
+            <h3>ENGINE</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+				            <td valign="top">Engine Type</td>
+				            <td valign="top">&nbsp;Parallel Twin</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Cylinders</td>
+                            <td valign="top">&nbsp;2</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Engine Stroke</td>
+                            <td valign="top">&nbsp;4-Stroke</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Cooling</td>
+                            <td valign="top">&nbsp;Liquid</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valves</td>
+                            <td valign="top">&nbsp;8</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valves Per Cylinder</td>
+                            <td valign="top">&nbsp;4</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Valve Configuration</td>
+                            <td valign="top">&nbsp;DOHC</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Compression Ratio</td>
+                            <td valign="top">&nbsp;10.6:1</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Starter</td>
+                            <td valign="top">&nbsp;Electric</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Requirements</td>
+                            <td valign="top">&nbsp;Regular</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Type</td>
+                            <td valign="top">&nbsp;Gas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+	 		<h3>TRANSMISSION</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+                            <td valign="top">Transmission Type</td>
+                            <td valign="top">&nbsp;Manual</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Number Of Speeds</td>
+                            <td valign="top">&nbsp;6</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Primary Drive (Rear Wheel)</td>
+                            <td valign="top">&nbsp;Chain</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+	 		<h3>WHEELS</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+                            <td valign="top">Front Tire (Full Spec)</td>
+                            <td valign="top">&nbsp;110/70 R17</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Rear Tire (Full Spec)</td>
+                            <td valign="top">&nbsp;140/70 R17</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+	 		<h3>BRAKES</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+                            <td valign="top">Front Brake Type</td>
+                            <td valign="top">&nbsp;Hydraulic Disc</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Rear Brake Type</td>
+                            <td valign="top">&nbsp;Hydraulic Disc</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+	 		<h3>TECHNICAL SPECIFICATIONS</h3>
+            <section class="accordion-section">
+                <table>
+                    <col width="300">
+                    <col width="300">                    
+                    <tbody>			
+                        <tr>
+                            <td valign="top">Wheelbase (in/mm)</td>
+                            <td valign="top">&nbsp;55.3 / 1404.6</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Fuel Capacity (gal/l)</td>
+                            <td valign="top">&nbsp;4.5 / 17</td>
+                        </tr>
+			         </tbody>
+                </table>
+            </section>
+        </div>
+        
+        <div class="headings"><h5 id="shop-manuals">Shop&nbsp;&&nbsp;Manuals:</h5></div> 
+
+        <div id="ninja-links">
+            <a href="https://ownersmanuals2.com/kawasaki/ninja-300-abs-2014-owners-manual-68758" target="_blank" target="_blank"><img class="vehicle-links" src="UserManual.png"></a>
+            
+            <a href="https://www.jpcycles.com/2014-kawasaki-ninja-300-abs" target="_blank"><img class="vehicle-links" src="jp-cycles-logo.jpg"></a>
+            
+            <a href="https://www.revzilla.com/parts/2014-kawasaki-ninja-300-abs?facets%5B%5D=1889" target="_blank"><img class="vehicle-links" src="revzilla.jpg"></a>
+        </div>
     
-    <p>This site is a one stop shop for my garage vehicles, to have their related specs and manuals recorded for reference</p>
+        <div class="headings"><h5 id="helpful-videos">Helpful Videos:</h5></div> 
+
+        <div class="vehicle-videos">
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/DqxhnxOi77c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/W-ShIshslDw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <iframe class="vehicle-videos-iframes" src="https://www.youtube.com/embed/YY_niATvosA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <br><br>
     
-    <form action="http://www.google.com">
+    <div class="clear-float"></div>
+    <div id="goto-top">
+        <button id="goto-top-button"><i class="fa fa-arrow-up icons"></i></button>
+    </div>
 
-        <p>Want to know more?</p>
+    
+    <br><br><hr>
+        
+    <footer>&copy; Copyright 2020 Mahe's Garage</footer>
 
-        <p><input type="submit" value="Click Here!"></p>
+    <script type="text/javascript">
+        
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }   
+        
+        $(document).ready(function(){
+            $("#goto-top").fadeOut();
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+            $(window).scroll(function(){
+                btnBottom = $("#goto-top-button").offset().top + $("#goto-top-button").outerHeight();
+                ftrTop = $("footer").offset().top;
+                if($(this).scrollTop() == 0) {
+                    $("#goto-top").fadeOut(); 
+                } else if (btnBottom > ftrTop) {
+                    $("#goto-top-button").css("bottom", btnBottom - ftrTop + $("#goto-top-button").outerHeight());   
+                } else {
+                    $("#goto-top").css("position","fixed");
+                    $("#goto-top").fadeIn();
+                }
+            });
+        });
+        
+        $ (function(){
+            var collapsible = $( ".accordion" ).accordion( "option", "collapsible" );
+        $( ".accordion" ).accordion( "option", "collapsible", true );
+        });
+        
+        $(function() {
+            $(".accordion").accordion({
+                event: "click",
+                active: false,
+                collapsible: true,
+                autoHeight: false
+            });
+        } );
+        
+        $("#search-button").hover(function(){
+            $(this).addClass("highlighted-search-button");
+        },function(){
+            $(this).removeClass("highlighted-search-button");
+        });
+        
+        $("#signup-button").hover(function(){
+            $(this).addClass("highlighted-signup-button");
+        },function(){
+            $(this).removeClass("highlighted-signup-button");
+        });
+        
+        $(".vehicle-links").hover(function(){
+            $(this).addClass("highlighted-image");
+        },function(){
+            $(this).removeClass("highlighted-image");
+        });
+        
+        var imageIndex = 1;
+        showNextOrPreviousImage(imageIndex,"sportsterImages");
+        showNextOrPreviousImage(imageIndex,"ninjaImages");
 
-    </form>
+        function buttonArrow(n,className) {
+          showNextOrPreviousImage(imageIndex += n,className);
+        }
+
+        function showNextOrPreviousImage(n,className) {
+          var count;
+          var classElements = document.getElementsByClassName(className);
+          if (n > classElements.length) {imageIndex = 1}
+          if (n < 1) {imageIndex = classElements.length}
+          for (count = 0; count < classElements.length; count++) {
+            classElements[count].style.display = "none";  
+          }
+          classElements[imageIndex-1].style.display = "block";  
+        }
+        
+        function buttonSearch() {
+            var srchValue = $("#search-box").val();
+            if (srchValue != ""){
+                window.open("http://google.com/search?q=" + srchValue);
+                $("#search-box").val("");
+            }
+        }
+
+        $("#goto-top").click(function() {
+          $("body,html").animate({scrollTop:0});
+        });
+        
+        $('body').scrollspy({ target: '#navbar' }) 
+        
+    </script>
     
 
 </body>
